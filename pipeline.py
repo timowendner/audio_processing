@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def main():
     # Load the input wavefile
-    filename = "audio/guns.wav"
+    filename = "audio/dogs.wav"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     waveform, sample_rate = torchaudio.load(filename)
     waveform = waveform.to(device)
