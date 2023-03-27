@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def main():
     # Load the input wavefile
-    filename = "audio/dogs.wav"
+    filename = "audio/guns.wav"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     waveform, sample_rate = torchaudio.load(filename)
     waveform = waveform.to(device)
@@ -43,7 +43,7 @@ def main():
     reconstructed = reconstructed.cpu()
 
     # # # Play the preprocessed audio
-    torchaudio.save('output/dogs.wav', reconstructed, sample_rate)
+    torchaudio.save('output/guns.wav', reconstructed, sample_rate)
     # # print(waveform.max(), waveform.min())
 
     
