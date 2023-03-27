@@ -5,7 +5,7 @@ import torchaudio.transforms as T
 import numpy as np
 
 class AudioToMelSpectrogram(torch.nn.Module):
-    def __init__(self, sr, n_fft=1024, win_length=1024, hop_length=128, n_mels=80):
+    def __init__(self, sr, n_fft=1024, win_length=1024, hop_length=256, n_mels=80):
         super().__init__()  
         # initialize the Mel-Spectrogram
         self.spectrogram = T.Spectrogram(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
@@ -34,7 +34,7 @@ class AudioToMelSpectrogram(torch.nn.Module):
 
         # # Convert to decibels
         # spec = F.amplitude_to_DB(spec, 20, 1e-10, np.log10(max(spec.max(), 1e-10)))
-        spec = torch.log2(spec)
+        # spec = torch.log2(spec)
         
         # ATDB = T.AmplitudeToDB(stype="amplitude", top_db=80)
         # spec = ATDB(spec)
@@ -51,7 +51,7 @@ class AudioToMelSpectrogram(torch.nn.Module):
         Returns:
             torch.tensor: The original Waveform
         """
-        spectrogram = torch.pow(spectrogram, 2)
+        # spectrogram = torch.pow(spectrogram, 2)
         spectrogram = self.inverse_mel_scale(spectrogram)
         waveform = self.griffin_lim(spectrogram)
         return waveform
