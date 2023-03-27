@@ -11,7 +11,7 @@ def main():
     filename = "audio/test_guns.wav"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     waveform, sample_rate = torchaudio.load(filename)
-    waveform.to(device)
+    waveform = waveform.to(device)
     
     # # apply the preprocessor
     # preprocessor = AudioPreprocessor()
@@ -25,6 +25,11 @@ def main():
     # mel_spec = audio2mel(waveform, device)
 
     mel_spec = audio2mel(waveform)
+
+    # Move spectrogram back to CPU if necessary
+    if device.type != 'cpu':
+        mel_spec = mel_spec.cpu()
+    
     print(mel_spec)
 
 
