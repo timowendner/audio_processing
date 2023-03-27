@@ -1,13 +1,12 @@
 import numpy as np
 import torch
 import torchaudio
-from audio_processing.audio_preprocessing import AudioPreprocessor
-from audio_processing.audio2mel import AudioToMelSpectrogram
+from audio_preprocessing import AudioPreprocessor
+from audio2mel import AudioToMelSpectrogram
 import matplotlib.pyplot as plt
 
-def main():
+def main(filename):
     # Load the input wavefile
-    filename = "audio_processing/audio/test_guns.wav"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     waveform, sample_rate = torchaudio.load(filename)
     waveform = waveform.to(device)
