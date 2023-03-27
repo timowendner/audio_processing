@@ -34,7 +34,7 @@ def main():
     plt.xlabel('Time')
     plt.ylabel('Mel-frequency')
     plt.title('Mel-spectrogram')
-    plt.show()
+    plt.savefig("Mel-spectrogram.png")
 
 
     # # # get the original audio back
