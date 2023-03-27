@@ -30,7 +30,7 @@ def main():
     if device.type != 'cpu':
         mel_spec = mel_spec.cpu()
     
-    print(mel_spec)
+    # print(mel_spec)
 
 
     # # plot the mel-spectrogram
