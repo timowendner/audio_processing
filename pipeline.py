@@ -25,10 +25,6 @@ def main():
     # mel_spec = audio2mel(waveform, device)
 
     mel_spec = audio2mel(waveform)
-
-    # Move spectrogram back to CPU if necessary
-    if device.type != 'cpu':
-        mel_spec = mel_spec.cpu()
     
     # print(mel_spec)
 
@@ -42,12 +38,15 @@ def main():
 
 
     # # get the original audio back
-    # reconstructed = audio2mel.reverse(mel_spec)
+    reconstructed = audio2mel.reverse(mel_spec)
     
 
     # # Play the preprocessed audio
-    # torchaudio.save('output/guns.wav', reconstructed, sample_rate)
+    torchaudio.save('output/guns.wav', reconstructed, sample_rate)
     # # print(waveform.max(), waveform.min())
+
+    # Move spectrogram back to CPU if necessary
+    mel_spec = mel_spec.cpu()
     
 if __name__ == '__main__':
     main()
