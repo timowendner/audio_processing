@@ -5,7 +5,7 @@ import torchaudio.transforms as T
 import numpy as np
 
 class AudioToMelSpectrogram(torch.nn.Module):
-    def __init__(self, sr, n_fft=1024, win_length=1024, hop_length=256, n_mels=120):
+    def __init__(self, sr, n_fft=1024, win_length=1024, hop_length=128, n_mels=80):
         super().__init__()  
         # initialize the Mel-Spectrogram
         self.spectrogram = T.Spectrogram(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
