@@ -29,22 +29,22 @@ def main():
     # print(mel_spec)
 
 
-    # # plot the mel-spectrogram
-    # plt.imshow(mel_spec.squeeze().numpy(), cmap='magma')
-    # plt.xlabel('Time')
-    # plt.ylabel('Mel-frequency')
-    # plt.title('Mel-spectrogram')
-    # plt.show()
+    # plot the mel-spectrogram
+    plt.imshow(mel_spec.cpu().squeeze().numpy(), cmap='magma')
+    plt.xlabel('Time')
+    plt.ylabel('Mel-frequency')
+    plt.title('Mel-spectrogram')
+    plt.show()
 
 
-    # # get the original audio back
-    reconstructed = audio2mel.reverse(mel_spec)
+    # # # get the original audio back
+    # reconstructed = audio2mel.reverse(mel_spec)
     
-    # Move spectrogram back to CPU if necessary
-    mel_spec = mel_spec.cpu()
+    # # Move spectrogram back to CPU if necessary
+    # reconstructed = reconstructed.cpu()
 
-    # # Play the preprocessed audio
-    torchaudio.save('output/guns.wav', reconstructed, sample_rate)
+    # # # Play the preprocessed audio
+    # torchaudio.save('output/guns.wav', reconstructed, sample_rate)
     # # print(waveform.max(), waveform.min())
 
     
