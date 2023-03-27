@@ -20,10 +20,13 @@ def main():
     # waveform = waveform[:,:1*sample_rate]
     
     # create the mel-spectrogram
+    waveform.to(device)
     audio2mel = AudioToMelSpectrogram(sample_rate, device)
     audio2mel.to(device)
-    waveform.to(device)
-    mel_spec = audio2mel(waveform, device)
+    # mel_spec = audio2mel(waveform, device)
+
+    transform = torchaudio.transforms.Spectrogram(n_fft=1024, hop_length=256, power=2).to(device)
+    mel_spec = transform(waveform)
 
 
     # plot the mel-spectrogram
