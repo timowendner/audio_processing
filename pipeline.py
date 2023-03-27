@@ -4,7 +4,6 @@ import torchaudio
 from audio_preprocessing import AudioPreprocessor
 from audio2mel import AudioToMelSpectrogram
 from mel2audio import MelSpectrogramToAudio
-import sounddevice as sd
 import matplotlib.pyplot as plt
 
 def main():
