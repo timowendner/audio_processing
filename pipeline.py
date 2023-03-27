@@ -37,13 +37,13 @@ def main():
 
 
     # # # get the original audio back
-    # reconstructed = audio2mel.reverse(mel_spec)
+    reconstructed = audio2mel.reverse(mel_spec)
     
     # # Move spectrogram back to CPU if necessary
-    # reconstructed = reconstructed.cpu()
+    reconstructed = reconstructed.cpu()
 
     # # # Play the preprocessed audio
-    # torchaudio.save('output/guns.wav', reconstructed, sample_rate)
+    torchaudio.save('output/dogs.wav', reconstructed, sample_rate)
     # # print(waveform.max(), waveform.min())
 
     
