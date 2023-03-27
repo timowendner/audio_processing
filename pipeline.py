@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 def main():
     # Load the input wavefile
     filename = "audio/test_guns.wav"
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     waveform, sample_rate = torchaudio.load(filename)
     
     # # apply the preprocessor
@@ -19,7 +20,7 @@ def main():
     # waveform = waveform[:,:1*sample_rate]
     
     # create the mel-spectrogram
-    audio2mel = AudioToMelSpectrogram(sample_rate)
+    audio2mel = AudioToMelSpectrogram(sample_rate, device=device)
     mel_spec = audio2mel(waveform)
 
 
@@ -32,11 +33,11 @@ def main():
 
 
     # # get the original audio back
-    # reconstructed = audio2mel.reverse(mel_spec)
+    reconstructed = audio2mel.reverse(mel_spec)
     
 
     # # Play the preprocessed audio
-    # torchaudio.save('output/guns.wav', reconstructed, sample_rate)
+    torchaudio.save('output/guns.wav', reconstructed, sample_rate)
     # # print(waveform.max(), waveform.min())
     
 if __name__ == '__main__':
