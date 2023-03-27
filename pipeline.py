@@ -4,7 +4,6 @@ import torchaudio
 from audio_preprocessing import AudioPreprocessor
 from audio2mel import AudioToMelSpectrogram
 import matplotlib.pyplot as plt
-%matplotlib inline
 
 def main():
     # Load the input wavefile
