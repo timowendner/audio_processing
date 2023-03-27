@@ -33,7 +33,7 @@ def main():
 
 
     # # get the original audio back
-    # reconstructed = audio2mel.reverse(mel_spec)
+    reconstructed = audio2mel.reverse(mel_spec)
     
 
     # # Play the preprocessed audio
