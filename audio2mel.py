@@ -9,10 +9,10 @@ class AudioToMelSpectrogram(torch.nn.Module):
         super().__init__()  
         # initialize the Mel-Spectrogram
         self.spectrogram = T.Spectrogram(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
-        self.mel = T.MelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1, f_min=20)
+        self.mel = T.MelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1)
         
         # initialize the inverse Mel-Spectrogram
-        self.inverse_mel_scale = T.InverseMelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1, f_min=20)
+        self.inverse_mel_scale = T.InverseMelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1)
         self.griffin_lim = T.GriffinLim(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
 
     def forward(self, waveform):
@@ -29,9 +29,6 @@ class AudioToMelSpectrogram(torch.nn.Module):
             waveform = torch.mean(waveform, dim=0, keepdim=True)
 
         # Apply mel spectrogram
-        
-        
-        
         spec = self.spectrogram(waveform)
         spec = self.mel(spec)
 
