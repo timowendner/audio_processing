@@ -23,7 +23,7 @@ def main():
     audio2mel = AudioToMelSpectrogram(sample_rate, device)
     audio2mel.to(device)
     waveform.to(device)
-    mel_spec = audio2mel(waveform)
+    mel_spec = audio2mel(waveform, device)
 
 
     # plot the mel-spectrogram
