@@ -33,11 +33,11 @@ def main():
 
 
     # # get the original audio back
-    reconstructed = audio2mel.reverse(mel_spec)
+    # reconstructed = audio2mel.reverse(mel_spec)
     
 
     # # Play the preprocessed audio
-    torchaudio.save('output/guns.wav', reconstructed, sample_rate)
+    # torchaudio.save('output/guns.wav', reconstructed, sample_rate)
     # # print(waveform.max(), waveform.min())
     
 if __name__ == '__main__':
