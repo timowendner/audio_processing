@@ -5,17 +5,17 @@ import torchaudio.transforms as T
 import numpy as np
 
 class AudioToMelSpectrogram(torch.nn.Module):
-    def __init__(self, sr, device, n_fft=1024, win_length=1024, hop_length=256, n_mels=120):
+    def __init__(self, sr, n_fft=1024, win_length=1024, hop_length=256, n_mels=120):
         super().__init__()  
         # initialize the Mel-Spectrogram
-        self.spectrogram = T.Spectrogram(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2).to(device)
-        self.mel = T.MelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1, f_min=20).to(device)
+        self.spectrogram = T.Spectrogram(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
+        self.mel = T.MelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1, f_min=20)
         
         # initialize the inverse Mel-Spectrogram
-        self.inverse_mel_scale = T.InverseMelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1, f_min=20).to(device)
-        self.griffin_lim = T.GriffinLim(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2).to(device)
+        self.inverse_mel_scale = T.InverseMelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1, f_min=20)
+        self.griffin_lim = T.GriffinLim(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
 
-    def forward(self, waveform, device):
+    def forward(self, waveform):
         """Convert the waveform into a human readable Mel-Spectrogram
 
         Args:
@@ -24,7 +24,6 @@ class AudioToMelSpectrogram(torch.nn.Module):
         Returns:
             torch.tensor: Mel-Spectrogram
         """
-        waveform.to(device)
         # Convert to mono if stereo
         if waveform.shape[0] > 1:
             waveform = torch.mean(waveform, dim=0, keepdim=True)

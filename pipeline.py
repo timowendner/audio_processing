@@ -11,6 +11,7 @@ def main():
     filename = "audio/test_guns.wav"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     waveform, sample_rate = torchaudio.load(filename)
+    waveform.to(device)
     
     # # apply the preprocessor
     # preprocessor = AudioPreprocessor()
@@ -20,21 +21,19 @@ def main():
     # waveform = waveform[:,:1*sample_rate]
     
     # create the mel-spectrogram
-    waveform.to(device)
-    audio2mel = AudioToMelSpectrogram(sample_rate, device)
-    audio2mel.to(device)
+    audio2mel = AudioToMelSpectrogram(sample_rate).to(device)
     # mel_spec = audio2mel(waveform, device)
 
-    transform = torchaudio.transforms.Spectrogram(n_fft=1024, hop_length=256, power=2).to(device)
-    mel_spec = transform(waveform)
+    mel_spec = audio2mel(waveform)
+    print(mel_spec)
 
 
-    # plot the mel-spectrogram
-    plt.imshow(mel_spec.squeeze().numpy(), cmap='magma')
-    plt.xlabel('Time')
-    plt.ylabel('Mel-frequency')
-    plt.title('Mel-spectrogram')
-    plt.show()
+    # # plot the mel-spectrogram
+    # plt.imshow(mel_spec.squeeze().numpy(), cmap='magma')
+    # plt.xlabel('Time')
+    # plt.ylabel('Mel-frequency')
+    # plt.title('Mel-spectrogram')
+    # plt.show()
 
 
     # # get the original audio back
