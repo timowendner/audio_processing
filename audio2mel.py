@@ -29,6 +29,9 @@ class AudioToMelSpectrogram(torch.nn.Module):
             waveform = torch.mean(waveform, dim=0, keepdim=True)
 
         # Apply mel spectrogram
+        
+        
+        
         spec = self.spectrogram(waveform)
         spec = self.mel(spec)
 
