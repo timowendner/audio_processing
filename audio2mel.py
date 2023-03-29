@@ -4,16 +4,21 @@ import torchaudio.functional as F
 import torchaudio.transforms as T
 import numpy as np
 
+
 class AudioToMelSpectrogram(torch.nn.Module):
     def __init__(self, sr, n_fft=1024, win_length=1024, hop_length=256, n_mels=80):
-        super().__init__()  
+        super().__init__()
         # initialize the Mel-Spectrogram
-        self.spectrogram = T.Spectrogram(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
-        self.mel = T.MelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1)
-        
+        self.spectrogram = T.Spectrogram(
+            n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
+        self.mel = T.MelScale(
+            n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1)
+
         # initialize the inverse Mel-Spectrogram
-        self.inverse_mel_scale = T.InverseMelScale(n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1)
-        self.griffin_lim = T.GriffinLim(n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
+        self.inverse_mel_scale = T.InverseMelScale(
+            n_mels=n_mels, sample_rate=sr, n_stft=n_fft // 2 + 1)
+        self.griffin_lim = T.GriffinLim(
+            n_fft=n_fft, win_length=win_length, hop_length=hop_length, power=2)
 
     def forward(self, waveform):
         """Convert the waveform into a human readable Mel-Spectrogram
@@ -35,15 +40,15 @@ class AudioToMelSpectrogram(torch.nn.Module):
         # # Convert to decibels
         # spec = F.amplitude_to_DB(spec, 20, 1e-10, np.log10(max(spec.max(), 1e-10)))
         # spec = torch.log2(spec)
-        
+
         # ATDB = T.AmplitudeToDB(stype="amplitude", top_db=80)
         # spec = ATDB(spec)
         # mel_spec_db = F.amplitude_to_DB(spec, 10, 1e-10, 1)
-        
+
         return spec
-    
+
     def reverse(self, spectrogram):
-        """reverse of the Audio to Mel-Spectrogram function. Gets the orginal waveform given a Mel-Spectrogram
+        """reverse of the Audio to Mel-Spectrogram function. Gets the original waveform given a Mel-Spectrogram
 
         Args:
             spectrogram (torch.tensor): The Spectrogram calculated by AudioToMelSpectrogram
